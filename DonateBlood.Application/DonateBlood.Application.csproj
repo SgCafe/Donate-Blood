@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DonateBlood.Core\DonateBlood.Core.csproj" />
+    <ProjectReference Include="..\DonateBlood.Infrastructure\DonateBlood.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
