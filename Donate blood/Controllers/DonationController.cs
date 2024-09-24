@@ -3,7 +3,7 @@
 namespace Donate_blood.Controllers
 {
 
-    [Route("api/v1")]
+    [Route("api/donation")]
     [ApiController]
     public class DonationController : ControllerBase
     {

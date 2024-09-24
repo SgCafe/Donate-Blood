@@ -3,7 +3,7 @@
 namespace Donate_blood.Controllers
 {
 
-    [Route("api/v1")]
+    [Route("api/donors")]
     [ApiController]
     public class DonorsController : ControllerBase
     {
@@ -13,8 +13,8 @@ namespace Donate_blood.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        public IActionResult GetByType(string search)
+        [HttpGet("{search}")]
+        public IActionResult GetByType(string search = "")
         {
             return Ok();
         }
