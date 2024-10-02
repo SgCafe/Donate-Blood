@@ -1,7 +1,28 @@
 ﻿namespace DonateBlood.Core.Entities
 {
-    public class Donors
+    public class Donors : BaseEntity
     {
+        public Donors()
+        {
+            
+        }
+
+        public Donors(
+            string fullName, string email, 
+            DateTime birthDate, string gender, 
+            double weight, string bloodType, 
+            string factorRh, Adreess adreess)
+        {
+            FullName = fullName;
+            Email = email;
+            BirthDate = birthDate;
+            Gender = gender;
+            Weight = weight;
+            BloodType = bloodType;
+            FactorRh = factorRh;
+            Adreess = new Adreess();
+        }
+
         public int Id { get; private set; }
         public string FullName { get; private set; }
         public string Email { get; private set; }
@@ -12,16 +33,6 @@
         public string FactorRh { get; private set; }
 
         public List<Donations> Donations { get; private set; }
-        public Adreess Adreess{ get; private set; }
-
-    }
-
-    public record Adreess
-    {
-        public int Id { get; private set; }
-        public string Street { get; private set; }
-        public string City { get; private set; }
-        public string State { get; private set; }
-        public string PostalCode { get; private set; }
+        public Adreess Adreess{ get; private set; } = new Adreess();
     }
 }

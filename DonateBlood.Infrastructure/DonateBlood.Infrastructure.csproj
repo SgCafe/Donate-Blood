@@ -10,4 +10,8 @@
     <ProjectReference Include="..\DonateBlood.Core\DonateBlood.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\" />
+  </ItemGroup>
+
 </Project>

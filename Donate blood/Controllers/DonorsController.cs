@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DonateBlood.Application.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Donate_blood.Controllers
 {
@@ -20,8 +21,10 @@ namespace Donate_blood.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Post(int id, CreateDonorInputModel model)
         {
+
+
             return NoContent();
         }
     }
