@@ -14,6 +14,8 @@
         public int DonorId { get; private set; }
         public DateTime DonationDate { get; private set; }
         public int Quantity { get; private set; }
-        public Donors Donor { get; private set; }
+
+        public List<DonorDonation> DonorDonation { get; private set; }
+        public List<Donors> Donor { get; private set; }
     }
 }

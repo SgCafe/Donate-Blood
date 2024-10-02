@@ -32,6 +32,7 @@
         public string BloodType { get; private set; }
         public string FactorRh { get; private set; }
 
+        public List<DonorDonation> DonorDonation { get; private set; }
         public List<Donations> Donations { get; private set; }
         public Adreess Adreess{ get; private set; } = new Adreess();
     }

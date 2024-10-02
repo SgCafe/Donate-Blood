@@ -1,8 +1,8 @@
 ﻿namespace DonateBlood.Core.Entities
 {
-    public class StockDonationAssociative : BaseEntity
+    public class StockDonation : BaseEntity
     {
-        public StockDonationAssociative(int donationId, int stockId)
+        public StockDonation(int donationId, int stockId)
             : base()
         {
             DonationId = donationId;
@@ -13,6 +13,6 @@
         public int DonationId { get; private set; }
         public Donations Donation { get; private set; }
         public int StockId { get; private set; }
-        public DonationStock Stock { get; private set; }
+        public Stocks Stock { get; private set; }
     }
 }

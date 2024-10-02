@@ -1,8 +1,8 @@
 ﻿namespace DonateBlood.Core.Entities
 {
-    public class DonationStock : BaseEntity
+    public class Stocks : BaseEntity
     {
-        public DonationStock(string bloodType, string factorRh, int quantity)
+        public Stocks(string bloodType, string factorRh, int quantity)
         {
             BloodType = bloodType;
             FactorRh = factorRh;
