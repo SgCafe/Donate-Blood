@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DonateBlood.Application.Services.Donations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Donate_blood.Controllers
 {
@@ -7,6 +8,12 @@ namespace Donate_blood.Controllers
     [ApiController]
     public class DonationController : ControllerBase
     {
+        private readonly IDonationsService _service;
+        public DonationController(IDonationsService service)
+        {
+            _service = service;
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {

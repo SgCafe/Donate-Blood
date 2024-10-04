@@ -1,4 +1,6 @@
-﻿namespace DonateBlood.Core.Entities
+﻿using DonateBlood.Core.Enums;
+
+namespace DonateBlood.Core.Entities
 {
     public class Donors : BaseEntity
     {
@@ -10,7 +12,7 @@
         public Donors(
             string fullName, string email, 
             DateTime birthDate, string gender, 
-            double weight, string bloodType, 
+            double weight, string bloodType,
             string factorRh, Adreess adreess)
         {
             FullName = fullName;

@@ -33,7 +33,49 @@ namespace DonateBlood.Infrastructure.Persistence
 
                     e.HasOne(d => d.Donation)
                         .WithMany(dd => dd.DonorDonation)
-                        .HasForeignKey(fk => fk.Donation)
+                        .HasForeignKey(fk => fk.DonationId)
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            builder
+                .Entity<StockDonation>(e =>
+                {
+                    e.HasKey(e => e.Id);
+
+                    e.HasOne(s => s.Stock)
+                        .WithMany(sd => sd.StockDonation)
+                        .HasForeignKey(fk => fk.StockId)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    e.HasOne(d => d.Donation)
+                        .WithMany(sd => sd.StockDonation)
+                        .HasForeignKey(fk => fk.DonationId)
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            builder
+                .Entity<Donors>(e =>
+                {
+                    e.HasKey(e => e.Id);
+
+                    e.HasMany(d => d.Donations)
+                        .WithOne(dd => dd.Donor)
+                        .HasForeignKey(fk => fk.DonorId)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    e.HasOne(d => d.Adreess)
+                        .WithOne(a => a.Donor)
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            builder
+                .Entity<Donations>(e =>
+                {
+                    e.HasKey(e => e.Id);
+
+                    e.HasOne(s => s.Stock)
+                        .WithMany(d => d.Donations)
+                        .HasForeignKey(fk => fk.StockId)
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

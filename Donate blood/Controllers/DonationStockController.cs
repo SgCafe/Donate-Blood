@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DonateBlood.Application.Services.Stock;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Donate_blood.Controllers
 {
@@ -6,6 +7,13 @@ namespace Donate_blood.Controllers
     [ApiController]
     public class DonationStockController : ControllerBase
     {
+        private readonly IStockService _service;
+
+        public DonationStockController(IStockService service)
+        {
+            _service = service;    
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {

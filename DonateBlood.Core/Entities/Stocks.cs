@@ -13,5 +13,8 @@
         public string BloodType { get; private set; }
         public string FactorRh { get; private set; }
         public int Quantity { get; private set; }
+
+        public List<Donations> Donations { get; private set; }
+        public List<StockDonation> StockDonation { get; private set; }
     }
 }
