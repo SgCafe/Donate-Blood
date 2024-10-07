@@ -16,6 +16,8 @@
         public int Quantity { get; private set; }
 
         public Donors Donor { get; private set; }
+        // faz sim, vou remodelar dps então
+
         public int StockId { get; private set; }
         public Stocks Stock { get; private set; }
         public List<DonorDonation> DonorDonation { get; private set; }

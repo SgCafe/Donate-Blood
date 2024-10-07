@@ -1,7 +1,11 @@
 using DonateBlood.Application;
+using DonateBlood.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<DonateBloodDbContext>(o => 
+        o.UseInMemoryDatabase("DonateBloodCsNote"));
 
 builder.Services.AddApplication();
 

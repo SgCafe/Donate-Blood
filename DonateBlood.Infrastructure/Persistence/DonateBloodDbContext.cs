@@ -7,13 +7,13 @@ namespace DonateBlood.Infrastructure.Persistence
     {
 
         public DonateBloodDbContext(DbContextOptions<DonateBloodDbContext> options)
-            : base()
+            : base(options)
         {
 
         }
 
         public DbSet<Donors> Donors { get; set; }
-        public DbSet<Adreess> Adreess { get; set; }
+        //certo, vou remodelar, valeu
         public DbSet<Donations> Donations { get; set; }
         public DbSet<Stocks> Stocks { get; set; }
         public DbSet<StockDonation> StockDonation { get; set; }
