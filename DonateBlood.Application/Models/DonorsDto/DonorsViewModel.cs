@@ -18,7 +18,6 @@ namespace DonateBlood.Application.Models.DonorsDto
             Donations = new List<Donations>();
         }
 
-        public int Id { get; private set; }
         public string FullName { get; private set; }
         public string Email { get; private set; }
         public DateTime BirthDate { get; private set; }
@@ -31,14 +30,14 @@ namespace DonateBlood.Application.Models.DonorsDto
 
         public static DonorsViewModel FromEntity(Donors donor)
         {
-            var donations = donor.DonorDonation
-                .Select(x => x.Donation)
+            var donations = donor.Donations
+                .Select(x => x.Donor)
                 .Where(x => x.Id == donor.Id).ToList();
 
             return new DonorsViewModel(
                 donor.FullName, donor.Email, donor.BirthDate,
-                donor.Gender, donor.Weight, donor.BloodType, 
-                donor.FactorRh, donations);
+                donor.Gender, donor.Weight, donor.BloodType.ToString(), 
+                donor.FactorRh.ToString(), donor.Donations);
         }
     }
 }

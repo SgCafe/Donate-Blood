@@ -1,9 +1,10 @@
-﻿namespace DonateBlood.Core.Entities
-{
+﻿using System.Text.Json.Serialization;
 
-    public class Adreess
+namespace DonateBlood.Core.Entities
+{
+    public class Address
     {
-        public Adreess(string street, string city, string state, string postalCode)
+        public Address(string street, string city, string state, string postalCode)
         {
             Street = street;
             City = city;
@@ -16,8 +17,5 @@
         public string City { get; private set; }
         public string State { get; private set; }
         public string PostalCode { get; private set; }
-
-        public int DonorId { get; private set; }
-        public Donors Donor { get; private set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using DonateBlood.Application.Models.AdreessDto;
-using DonateBlood.Core.Entities;
+﻿using DonateBlood.Core.Entities;
 using DonateBlood.Core.Enums;
 
 namespace DonateBlood.Application.Models.DonorsDto
@@ -13,11 +12,10 @@ namespace DonateBlood.Application.Models.DonorsDto
         public double Weight { get; set; }
         public EBloodType BloodType { get; set; }
         public EFactorRh FactorRh { get; set; }
-        //ok, deu pra entender
-        public Adreess Adreess { get; private set; }
+        public Address Address { get; set; }
 
         public Donors ToEntity()
-            => new(FullName, Email, BirthDate, Gender, Weight, BloodType, FactorRh, Adreess);
+            => new(FullName, Email, BirthDate, Gender, Weight, BloodType, FactorRh, Address);
 
     }
 }

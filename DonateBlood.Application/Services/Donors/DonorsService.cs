@@ -16,7 +16,7 @@ namespace DonateBlood.Application.Services.Donors
         public ResultViewModel<List<DonorsViewModel>> GetAll()
         {
             var donors = _context.Donors
-                .Include(a => a.Adreess)
+                .Include(a => a.Address)
                 .Include(d => d.Donations)
                 .Where(isD => !isD.IsDeleted)
                 .ToList();
@@ -35,7 +35,7 @@ namespace DonateBlood.Application.Services.Donors
         public ResultViewModel<DonorsViewModel> GetById(int id)
         {
             var donor = _context.Donors
-                .Include(a => a.Adreess)
+                .Include(a => a.Address)
                 .Include(d => d.Donations)
                 .SingleOrDefault(x => x.Id == id);
 
@@ -54,7 +54,7 @@ namespace DonateBlood.Application.Services.Donors
             var donor = model.ToEntity();
 
             _context.Donors.Add(donor);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return ResultViewModel<int>.Success(donor.Id);
         }

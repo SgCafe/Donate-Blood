@@ -1,4 +1,5 @@
-﻿using DonateBlood.Application.Services.Donations;
+﻿using DonateBlood.Application.Models.DonationsDto;
+using DonateBlood.Application.Services.Donations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Donate_blood.Controllers
@@ -17,13 +18,35 @@ namespace Donate_blood.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok();
+            var result = _service.GetAll();
+
+            if (result is null)
+            {
+                return BadRequest(result.Data);
+            }
+
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok();
+            var result = _service.GetById(id);
+
+            if (result is null)
+            {
+                return BadRequest(result.Data);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public IActionResult Post(CreateDonationInputModel model)
+        {
+            var result = _service.Post(model);
+
+            return NoContent();
         }
     }
 }

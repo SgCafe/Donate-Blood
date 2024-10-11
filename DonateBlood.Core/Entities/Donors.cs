@@ -1,10 +1,12 @@
 ﻿using DonateBlood.Core.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace DonateBlood.Core.Entities
 {
     public class Donors : BaseEntity
     {
-        public Donors()
+        protected Donors()
         {
             
         }
@@ -13,7 +15,8 @@ namespace DonateBlood.Core.Entities
             string fullName, string email, 
             DateTime birthDate, string gender, 
             double weight, EBloodType bloodType,
-            EFactorRh factorRh, Adreess adreess)
+            EFactorRh factorRh, Address address)
+            : base()
         {
             FullName = fullName;
             Email = email;
@@ -22,7 +25,8 @@ namespace DonateBlood.Core.Entities
             Weight = weight;
             BloodType = bloodType;
             FactorRh = factorRh;
-            Adreess = adreess;
+            Address = address;
+            Donations = new List<Donations>();
         }
 
         public int Id { get; private set; }
@@ -31,11 +35,14 @@ namespace DonateBlood.Core.Entities
         public DateTime BirthDate { get; private set; }
         public string Gender { get; private set; }
         public double Weight { get; private set; }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public EBloodType BloodType { get; private set; }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public EFactorRh FactorRh { get; private set; }
-        
-        public List<DonorDonation> DonorDonation { get; private set; }
-        public List<Donations> Donations { get; private set; }
-        public Adreess Adreess { get; private set; }
+
+        public List<Donations> Donations { get; set; }
+        public Address Address { get; private set; }
     }
 }

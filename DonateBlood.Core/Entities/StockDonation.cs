@@ -11,7 +11,7 @@
 
         public int Id { get; private set; }
         public int DonationId { get; private set; }
-        public Donations Donation { get; private set; }
+        public Donations Donation { get; set; }
         public int StockId { get; private set; }
         public Stocks Stock { get; private set; }
     }

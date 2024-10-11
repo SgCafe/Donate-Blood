@@ -13,29 +13,49 @@ namespace DonateBlood.Infrastructure.Persistence
         }
 
         public DbSet<Donors> Donors { get; set; }
-        //certo, vou remodelar, valeu
         public DbSet<Donations> Donations { get; set; }
         public DbSet<Stocks> Stocks { get; set; }
         public DbSet<StockDonation> StockDonation { get; set; }
-        public DbSet<DonorDonation> DonorsDonation { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
-                .Entity<DonorDonation>(e =>
+                .Entity<Donors>(e =>
                 {
                     e.HasKey(e => e.Id);
 
-                    e.HasOne(d => d.Donor)
-                        .WithMany(dd => dd.DonorDonation)
+                    e.OwnsOne(o => o.Address, sa =>
+                    {
+                        sa.Property(p => p.Street).HasColumnName("Street");
+                        sa.Property(p => p.City).HasColumnName("City");
+                        sa.Property(p => p.State).HasColumnName("State");
+                        sa.Property(p => p.PostalCode).HasColumnName("PostalCode");
+                    });
+
+                    e.Property(d => d.BloodType)
+                    .HasConversion<string>()
+                    .HasMaxLength(50);
+
+                    e.Property(d => d.FactorRh)
+                    .HasConversion<string>()
+                    .HasMaxLength(50);
+
+                    e.HasMany(d => d.Donations)
+                        .WithOne(dd => dd.Donor)
                         .HasForeignKey(fk => fk.DonorId)
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    e.HasOne(d => d.Donation)
-                        .WithMany(dd => dd.DonorDonation)
-                        .HasForeignKey(fk => fk.DonationId)
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
+
+            builder
+               .Entity<Donations>(e =>
+               {
+                   e.HasKey(e => e.Id);
+
+                   e.HasOne(s => s.Donor)
+                       .WithMany(d => d.Donations)
+                       .HasForeignKey(x => x.DonorId)
+                       .OnDelete(DeleteBehavior.Restrict);
+               });
 
             builder
                 .Entity<StockDonation>(e =>
@@ -50,32 +70,6 @@ namespace DonateBlood.Infrastructure.Persistence
                     e.HasOne(d => d.Donation)
                         .WithMany(sd => sd.StockDonation)
                         .HasForeignKey(fk => fk.DonationId)
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            builder
-                .Entity<Donors>(e =>
-                {
-                    e.HasKey(e => e.Id);
-
-                    e.HasMany(d => d.Donations)
-                        .WithOne(dd => dd.Donor)
-                        .HasForeignKey(fk => fk.DonorId)
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    e.HasOne(d => d.Adreess)
-                        .WithOne(a => a.Donor)
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            builder
-                .Entity<Donations>(e =>
-                {
-                    e.HasKey(e => e.Id);
-
-                    e.HasOne(s => s.Stock)
-                        .WithMany(d => d.Donations)
-                        .HasForeignKey(fk => fk.StockId)
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
