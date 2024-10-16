@@ -11,24 +11,17 @@ namespace DonateBlood.Application.Models.DonationsDto
             int quantity,
             DonorDonationViewModel donor,
             List<StockDonationViewModel> stocksMoviments)
-        //Donors donor,
-        //List<StockDonation> stockDonation)
         {
             DonationId = id;
             DonationDate = donationDate;
             Quantity = quantity;
             Donor = donor;
             StocksMoviments = stocksMoviments;
-            //Donor = donor;
-            //StockDonation = stockDonation;
         }
 
         public int DonationId { get; private set; }
         public DateTime DonationDate { get; private set; }
         public int Quantity { get; private set; }
-
-        //public Donors Donor { get; private set; }
-        //public List<StockDonation> StockDonation { get; private set; }
 
         public DonorDonationViewModel Donor { get; private set; }
         public List<StockDonationViewModel> StocksMoviments { get; private set; }
@@ -36,10 +29,11 @@ namespace DonateBlood.Application.Models.DonationsDto
         public static DonationViewModel FromEntity(Donations donations)
         {
             var moviments = new List<StockDonationViewModel>();
-            donations.StockDonation.ForEach(sd =>
+
+            foreach (var stockDonation in donations.StockDonation)
             {
-                moviments.Add(new(sd.DonationId, sd.StockId));
-            });
+                moviments.Add(new(stockDonation.DonationId, stockDonation.StockId));
+            }
 
             return new(
                 donations.Id,

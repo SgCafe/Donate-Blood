@@ -44,7 +44,7 @@ namespace DonateBlood.Application.Services.Donations
 
             if (donation is null)
             {
-                ResultViewModel<DonationViewModel>.Error("Doador não encontrado.");
+                return ResultViewModel<DonationViewModel>.Error("Doador não encontrado.");
             }
 
             var model = DonationViewModel.FromEntity(donation!);

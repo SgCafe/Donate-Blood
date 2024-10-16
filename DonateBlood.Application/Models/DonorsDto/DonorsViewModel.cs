@@ -1,12 +1,19 @@
 ﻿using DonateBlood.Core.Entities;
+using System.Diagnostics.Contracts;
 
 namespace DonateBlood.Application.Models.DonorsDto
 {
     public class DonorsViewModel
     {
         public DonorsViewModel(
-            string fullName, string email, DateTime birthDate, string gender,
-            double weight, string bloodType, string factorRh, List<Donations> donations)
+            string fullName,
+            string email,
+            DateTime birthDate,
+            string gender,
+            double weight,
+            string bloodType,
+            string factorRh,
+            List<DonationDonorViewModel> donations)
         {
             FullName = fullName;
             Email = email;
@@ -15,7 +22,7 @@ namespace DonateBlood.Application.Models.DonorsDto
             Weight = weight;
             BloodType = bloodType;
             FactorRh = factorRh;
-            Donations = new List<Donations>();
+            Donations = donations;
         }
 
         public string FullName { get; private set; }
@@ -26,18 +33,27 @@ namespace DonateBlood.Application.Models.DonorsDto
         public string BloodType { get; private set; }
         public string FactorRh { get; private set; }
 
-        public List<Donations> Donations { get; private set; }
+        public List<DonationDonorViewModel> Donations { get; private set; }
 
         public static DonorsViewModel FromEntity(Donors donor)
         {
-            var donations = donor.Donations
-                .Select(x => x.Donor)
-                .Where(x => x.Id == donor.Id).ToList();
+            var dn = new List<DonationDonorViewModel>();
+
+            foreach (var donation in donor.Donations)
+            {
+                dn.Add(new(donation.Id, donation.DonationDate, donation.Quantity));
+            }
 
             return new DonorsViewModel(
                 donor.FullName, donor.Email, donor.BirthDate,
-                donor.Gender, donor.Weight, donor.BloodType.ToString(), 
-                donor.FactorRh.ToString(), donor.Donations);
+                donor.Gender, donor.Weight, donor.BloodType.ToString(),
+                donor.FactorRh.ToString(),
+                dn);
         }
+
+        public record DonationDonorViewModel(
+            int id,
+            DateTime donationDate,
+            int quantity);
     }
 }
