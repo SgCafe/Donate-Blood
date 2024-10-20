@@ -41,7 +41,7 @@ namespace Donate_blood.Controllers
         }
 
         [HttpGet("{bloodType}/{factorRh}")]
-        public IActionResult GetByType(string bloodType, string factorRh)
+        public IActionResult GetByType(int bloodType, int factorRh)
         {
             var result = _service.GetByType(bloodType, factorRh);
 

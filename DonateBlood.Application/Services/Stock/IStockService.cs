@@ -9,6 +9,6 @@ namespace DonateBlood.Application.Services.Stock
 
         ResultViewModel<StockViewModel> GetById(int id);
 
-        ResultViewModel<StockViewModel> GetByType(string bloodType, string factorRh);
+        ResultViewModel<StockViewModel> GetByType(int bloodType, int factorRh);
     }
 }

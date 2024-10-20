@@ -44,13 +44,13 @@ namespace DonateBlood.Application.Services.Stock
             return ResultViewModel<StockViewModel>.Success(model);
         }
 
-        public ResultViewModel<StockViewModel> GetByType(string bloodType, string factorRh)
+        public ResultViewModel<StockViewModel> GetByType(int bloodType, int factorRh)
         {
             var stock = _context.Stocks
                 .SingleOrDefault(x => 
                     !x.IsDeleted && 
-                    x.BloodType.ToString() == bloodType || 
-                    x.FactorRh.ToString() == factorRh);
+                    (int)x.BloodType == bloodType && 
+                    (int)x.FactorRh == factorRh);
 
             if (stock is null)
             {

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DonateBlood.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(DonateBloodDbContext))]
-    [Migration("20241015003338_PrimeiraMigration")]
-    partial class PrimeiraMigration
+    [Migration("20241019185949_NoteMigration")]
+    partial class NoteMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DonateBloodPC");
+var connectionString = builder.Configuration.GetConnectionString("DonateBloodCsNote");
 builder.Services.AddDbContext<DonateBloodDbContext>(o => 
         o.UseSqlServer(connectionString));
 
