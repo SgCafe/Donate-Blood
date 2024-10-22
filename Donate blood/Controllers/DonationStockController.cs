@@ -8,10 +8,14 @@ namespace Donate_blood.Controllers
     public class DonationStockController : ControllerBase
     {
         private readonly IStockService _service;
+        private readonly IWebHostEnvironment _webHostEnv;
 
-        public DonationStockController(IStockService service)
+        public DonationStockController(
+            IStockService service,
+            IWebHostEnvironment webHostEnv)
         {
             _service = service;    
+            _webHostEnv = webHostEnv;
         }
 
         [HttpGet]

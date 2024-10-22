@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="10/21/2024 23:08:40" ReportInfo.Modified="10/21/2024 23:08:41" ReportInfo.CreatorVersion="2025.1.0.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="Donations" ReferenceName="Donations" DataType="System.Collections.Generic.List`1[[DonateBlood.Application.Models.DonorsDto.DonorsViewModel, DonateBlood.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+      <Column Name="FullName" DataType="System.String"/>
+      <Column Name="Email" DataType="System.String"/>
+      <Column Name="BirthDate" DataType="System.DateTime"/>
+      <Column Name="Gender" DataType="System.String"/>
+      <Column Name="Weight" DataType="System.Double"/>
+      <Column Name="BloodType" DataType="System.String"/>
+      <Column Name="FactorRh" DataType="System.String"/>
+      <BusinessObjectDataSource Name="Donations1" Alias="Donations" DataType="System.Collections.Generic.List`1[[DonateBlood.Application.Models.DonorsDto.DonorsViewModel+DonationDonorViewModel, DonateBlood.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="Donations" Enabled="true">
+        <Column Name="id" DataType="System.Int32"/>
+        <Column Name="donationDate" DataType="System.DateTime"/>
+        <Column Name="quantity" DataType="System.Int32"/>
+      </BusinessObjectDataSource>
+    </BusinessObjectDataSource>
+  </Dictionary>
+</Report>
