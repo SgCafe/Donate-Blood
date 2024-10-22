@@ -1,6 +1,7 @@
 ﻿using DonateBlood.Application.Services.Donations;
 using DonateBlood.Application.Services.Donors;
 using DonateBlood.Application.Services.Stock;
+using FastReport.Export.PdfSimple;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Donate_blood.Controllers
@@ -36,12 +37,38 @@ namespace Donate_blood.Controllers
             var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportDonors.frx");
             var reportFile = caminhoRelatorio;
             var fReport = new FastReport.Report();
+            
             var donateListResult = _donorsService.GetAll();
             var donateList = donateListResult.Data;
+
             fReport.Dictionary.RegisterBusinessObject(donateList, "Donations", 10, true);
             fReport.Report.Save(reportFile);
 
             return Ok($"Relatório gerado: {caminhoRelatorio}");
+        }
+
+        [HttpGet("GetReport")]
+        public IActionResult GetReport()
+        {
+            var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportDonors.frx");
+            var fReport = new FastReport.Report();
+
+            var donateListResult = _donorsService.GetAll();
+            var donateList = donateListResult.Data;
+            
+            fReport.Report.Load(caminhoRelatorio);
+            fReport.Dictionary.RegisterBusinessObject(donateList, "Donations", 10, true);
+
+            fReport.Prepare();
+
+            var pdfExport = new PDFSimpleExport();
+
+            using MemoryStream ms = new MemoryStream();
+
+            pdfExport.Export(fReport, ms);
+            ms.Flush();
+
+            return File(ms.ToArray(), "application/pdf", "RelatorioDonations.pdf");
         }
 
     }
