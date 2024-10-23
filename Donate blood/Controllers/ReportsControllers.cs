@@ -34,14 +34,18 @@ namespace Donate_blood.Controllers
         [HttpGet("CreateReport")]
         public IActionResult CreateReport()
         {
-            var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportDonors.frx");
+            var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportDonor.frx");
             var reportFile = caminhoRelatorio;
             var fReport = new FastReport.Report();
             
             var donateListResult = _donorsService.GetAll();
             var donateList = donateListResult.Data;
 
-            fReport.Dictionary.RegisterBusinessObject(donateList, "Donations", 10, true);
+            var stockListResult = _stockService.GetAll();
+            var stockList = stockListResult.Data;
+
+            fReport.Dictionary.RegisterBusinessObject(donateList, "Donors", 10, true);
+            fReport.Dictionary.RegisterBusinessObject(stockList, "Stocks", 10, true);
             fReport.Report.Save(reportFile);
 
             return Ok($"Relatório gerado: {caminhoRelatorio}");
@@ -50,18 +54,23 @@ namespace Donate_blood.Controllers
         [HttpGet("GetReport")]
         public IActionResult GetReport()
         {
-            var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportDonors.frx");
+            var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportDonor.frx");
             var fReport = new FastReport.Report();
 
             var donateListResult = _donorsService.GetAll();
             var donateList = donateListResult.Data;
             
+            var stockListResult = _stockService.GetAll();
+            var stockList = stockListResult.Data;
+            
             fReport.Report.Load(caminhoRelatorio);
-            fReport.Dictionary.RegisterBusinessObject(donateList, "Donations", 10, true);
+
+            fReport.Dictionary.RegisterBusinessObject(donateList, "Donors", 10, true);
+            fReport.Dictionary.RegisterBusinessObject(stockList, "Stocks", 10, true);
 
             fReport.Prepare();
 
-            var pdfExport = new PDFSimpleExport();
+            using var pdfExport = new PDFSimpleExport();
 
             using MemoryStream ms = new MemoryStream();
 
@@ -70,6 +79,5 @@ namespace Donate_blood.Controllers
 
             return File(ms.ToArray(), "application/pdf", "RelatorioDonations.pdf");
         }
-
     }
 }

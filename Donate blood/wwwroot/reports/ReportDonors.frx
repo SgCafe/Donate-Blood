@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="10/21/2024 23:08:40" ReportInfo.Modified="10/22/2024 13:00:06" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="10/22/2024 18:30:50" ReportInfo.Modified="10/22/2024 20:18:07" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
     <BusinessObjectDataSource Name="Donations" ReferenceName="Donations" DataType="System.Int32" Enabled="true">
       <Column Name="FullName" DataType="System.String"/>
@@ -15,32 +15,41 @@
         <Column Name="quantity" DataType="System.Int32"/>
       </BusinessObjectDataSource>
     </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="Stocks" ReferenceName="Stocks" DataType="System.Int32" Enabled="true">
+      <Column Name="Id" DataType="System.Int32"/>
+      <Column Name="BloodType" DataType="System.Int32"/>
+      <Column Name="FactorRh" DataType="System.Int32"/>
+      <Column Name="Quantity" DataType="System.Int32"/>
+    </BusinessObjectDataSource>
+    <Total Name="Total" Expression="[Donations.Donations.quantity]" Evaluator="Data1" ResetAfterPrint="false"/>
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" Watermark.Font="Arial, 60pt">
-    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8">
-      <TextObject Name="Text17" Width="1048.95" Height="37.8" Fill.Color="Black" Text="Relatório de registros de doadores" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 16pt, style=Bold" TextFill.Color="White"/>
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="85.05">
+      <TextObject Name="Text1" Width="1048.95" Height="47.25" Fill.Color="Black" Text="Relatório de doações de Sangue" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 16pt, style=Bold" TextFill.Color="White"/>
+      <ShapeObject Name="Shape1" Top="47.25" Width="1058.4" Height="37.8" Fill.Color="White"/>
+      <TextObject Name="Text2" Left="548.1" Top="56.7" Width="56.7" Height="18.9" Fill.Color="White" Text="[Date]" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 10pt"/>
+      <TextObject Name="Text3" Left="463.05" Top="56.7" Width="85.05" Height="18.9" Fill.Color="White" Text="Gerado em :" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 10pt"/>
+      <TextObject Name="Text14" Left="945" Top="56.7" Width="94.5" Height="18.9" Fill.Color="White" Text="[PageN]" HorzAlign="Center" VertAlign="Center" Font="Segoe UI Semibold, 8pt"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="1047.06" Height="18.9">
-      <TextObject Name="Text2" Left="9.45" Width="170.1" Height="18.9" Text="Nome Completo" Font="Segoe UI Semibold, 10pt"/>
-      <TextObject Name="Text4" Left="198.45" Width="94.5" Height="18.9" Text="Email" Font="Segoe UI Semibold, 10pt"/>
-      <TextObject Name="Text6" Left="311.85" Width="94.5" Height="18.9" Text="Peso" Font="Segoe UI Semibold, 10pt"/>
-      <TextObject Name="Text8" Left="425.25" Width="113.4" Height="18.9" Text="Tipo sanguíneo&#13;&#10;" Font="Segoe UI Semibold, 10pt"/>
-      <TextObject Name="Text10" Left="557.55" Width="94.5" Height="18.9" Text="FactorRh" Font="Segoe UI Semibold, 10pt"/>
-      <TextObject Name="Text12" Left="661.5" Width="113.4" Height="18.9" Text="Data de Doação" Font="Segoe UI Semibold, 10pt"/>
-      <TextObject Name="Text16" Left="793.8" Width="132.3" Height="18.9" Text="Quantidade doada" Font="Segoe UI Semibold, 10pt"/>
-      <LineObject Name="Line1" Top="18.9" Width="1058.4"/>
+    <PageHeaderBand Name="PageHeader1" Top="89.05" Width="1047.06" Height="37.8" Fill.Color="Silver">
+      <TextObject Name="Text4" Top="9.45" Width="189" Height="18.9" Text="Doador" HorzAlign="Center" VertAlign="Center" Font="Segoe UI Semibold, 10pt"/>
+      <TextObject Name="Text6" Left="207.9" Top="9.45" Width="132.3" Height="18.9" Text="Email" HorzAlign="Center" VertAlign="Center" Font="Segoe UI Semibold, 10pt"/>
+      <LineObject Name="Line1" Top="37.8" Width="1048.95"/>
+      <TextObject Name="Text9" Left="359.1" Top="9.45" Width="94.5" Height="18.9" Text="Peso" HorzAlign="Center" VertAlign="Center" Font="Segoe UI Semibold, 10pt"/>
+      <TextObject Name="Text11" Left="472.5" Top="9.45" Width="94.5" Height="18.9" Text="Tipo Sanguíneo" HorzAlign="Center" VertAlign="Center" Font="Segoe UI Semibold, 10pt"/>
+      <TextObject Name="Text13" Left="585.9" Top="9.45" Width="94.5" Height="18.9" Text="Quantidade" HorzAlign="Center" VertAlign="Center" Font="Segoe UI Semibold, 10pt"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="64.7" Width="1047.06" Height="37.8" DataSource="Donations">
-      <TextObject Name="Text1" Left="9.45" Top="9.45" Width="170.1" Height="18.9" Text="[Donations.FullName]" Font="Segoe UI, 10pt"/>
-      <TextObject Name="Text3" Left="198.45" Top="9.45" Width="94.5" Height="18.9" Text="[Donations.Email]" Font="Segoe UI, 10pt"/>
-      <TextObject Name="Text5" Left="311.85" Top="9.45" Width="94.5" Height="18.9" Text="[Donations.Weight]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Segoe UI, 10pt" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text7" Left="425.25" Top="9.45" Width="113.4" Height="18.9" Text="[Donations.BloodType]" Font="Segoe UI, 10pt"/>
-      <TextObject Name="Text9" Left="557.55" Top="9.45" Width="94.5" Height="18.9" Text="[Donations.FactorRh]" Font="Segoe UI, 10pt"/>
-      <TextObject Name="Text11" Left="661.5" Top="9.45" Width="113.4" Height="18.9" Text="[Donations.Donations.donationDate]" Format="Date" Format.Format="d" Font="Segoe UI, 10pt"/>
-      <TextObject Name="Text15" Left="793.8" Top="9.45" Width="132.3" Height="18.9" Text="[Donations.Donations.quantity]" Font="Segoe UI, 10pt"/>
+    <DataBand Name="Data1" Top="130.85" Width="1047.06" Height="28.35" DataSource="Donations">
+      <TextObject Name="Text5" Top="9.45" Width="189" Height="18.9" Text="[Donations.FullName]" VertAlign="Center" Font="Segoe UI, 9pt"/>
+      <TextObject Name="Text7" Left="207.9" Top="9.45" Width="132.3" Height="18.9" Text="[Donations.Email]" VertAlign="Center" Font="Segoe UI, 9pt"/>
+      <TextObject Name="Text8" Left="359.1" Top="9.45" Width="94.5" Height="18.9" Text="[Donations.Weight]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Segoe UI, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text10" Left="472.5" Top="9.45" Width="94.5" Height="18.9" Text="[Donations.BloodType]" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 9pt"/>
+      <TextObject Name="Text17" Left="585.9" Top="9.45" Width="94.5" Height="18.9" Text="[Donations.Donations]" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 9pt"/>
+      <TextObject Name="Text18" Left="708.75" Top="9.45" Width="94.5" Height="18.9" Text="[Total]" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 9pt"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="106.5" Width="1047.06" Height="37.8">
-      <TextObject Name="Text18" Left="926.1" Top="9.45" Width="94.5" Height="18.9" Fill.Color="White" Text="[PageN]" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 10pt, style=Bold"/>
+    <ReportSummaryBand Name="ReportSummary1" Top="163.2" Width="1047.06"/>
+    <PageFooterBand Name="PageFooter1" Top="167.2" Width="1047.06" Height="18.9">
+      <TextObject Name="Text16" Left="945" Width="94.5" Height="18.9" Fill.Color="White" Text="[PageN]" HorzAlign="Center" VertAlign="Center" Font="Segoe UI Semibold, 8pt"/>
     </PageFooterBand>
   </ReportPage>
 </Report>

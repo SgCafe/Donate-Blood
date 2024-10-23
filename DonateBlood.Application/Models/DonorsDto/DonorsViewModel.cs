@@ -33,7 +33,15 @@ namespace DonateBlood.Application.Models.DonorsDto
         public string BloodType { get; private set; }
         public string FactorRh { get; private set; }
 
+        public int AmountTotal { get; private set; }
+
         public List<DonationDonorViewModel> Donations { get; private set; }
+
+        public void CalculateAmount()
+        {
+            var amount = Donations.Sum(x => x.quantity);
+            AmountTotal = amount;
+        }
 
         public static DonorsViewModel FromEntity(Donors donor)
         {
@@ -44,11 +52,15 @@ namespace DonateBlood.Application.Models.DonorsDto
                 dn.Add(new(donation.Id, donation.DonationDate, donation.Quantity));
             }
 
-            return new DonorsViewModel(
+            var donors = new DonorsViewModel(
                 donor.FullName, donor.Email, donor.BirthDate,
                 donor.Gender, donor.Weight, donor.BloodType.ToString(),
                 donor.FactorRh.ToString(),
                 dn);
+
+            donors.CalculateAmount();
+
+            return donors;
         }
 
         public record DonationDonorViewModel(
