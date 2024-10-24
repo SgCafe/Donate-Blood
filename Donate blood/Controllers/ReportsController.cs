@@ -8,7 +8,7 @@ namespace Donate_blood.Controllers
 {
     [Route("api/report")]
     [ApiController]
-    public class ReportsControllers : ControllerBase
+    public class ReportsController : ControllerBase
     {
         #region Properties
 
@@ -19,7 +19,7 @@ namespace Donate_blood.Controllers
 
         #endregion Properties
 
-        public ReportsControllers(
+        public ReportsController(
             IDonorsService donorsService,
             IDonationsService donationsService,
             IStockService stockService,
@@ -65,7 +65,7 @@ namespace Donate_blood.Controllers
             pdfExport.Export(fReport, ms);
             ms.Flush();
 
-            return File(ms.ToArray(), "application/pdf", "RelatorioDonations.pdf");
+            return File(ms.ToArray(), "application/pdf", "RelatorioDoadores.pdf");
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Donate_blood.Controllers
             pdfExport.Export(fReport, ms);
             ms.Flush();
 
-            return File(ms.ToArray(), "application/pdf", "RelatorioDonations.pdf");
+            return File(ms.ToArray(), "application/pdf", "RelatorioDoações.pdf");
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Donate_blood.Controllers
         /// Caso crie um relatório, saiba que o design do atual será perdido.
         /// </remarks>
         /// <returns>Coleção de estoque</returns>
-        [HttpGet("CreateReportStock")]
+        [HttpPost("CreateReportStock")]
         public IActionResult CreateReportStock()
         {
             var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportStock.frx");
@@ -144,7 +144,7 @@ namespace Donate_blood.Controllers
         /// Caso crie um relatório, saiba que o design do atual será perdido.
         /// </remarks>
         /// <returns> Link para editar relatório no FasReports</returns>
-        [HttpGet("CreateReport")]
+        [HttpPost("CreateReport")]
         public IActionResult CreateReportDonors()
         {
             var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportDonor.frx");

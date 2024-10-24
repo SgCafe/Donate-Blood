@@ -5,12 +5,12 @@ namespace Donate_blood.Controllers
 {
     [Route("api/bloods")]
     [ApiController]
-    public class DonationStockController : ControllerBase
+    public class StockController : ControllerBase
     {
         private readonly IStockService _service;
         private readonly IWebHostEnvironment _webHostEnv;
 
-        public DonationStockController(
+        public StockController(
             IStockService service,
             IWebHostEnvironment webHostEnv)
         {
