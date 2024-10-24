@@ -18,7 +18,15 @@ namespace Donate_blood.Controllers
             _webHostEnv = webHostEnv;
         }
 
+        /// <summary>
+        /// Obter todos os Estoques
+        /// </summary>
+        /// <returns>Coleção de estoques</returns>
+        /// <response code="200">Sucesso</response>
+        /// <response code="404">Não encontrado</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAll()
         {
             var results = _service.GetAll();
@@ -31,7 +39,16 @@ namespace Donate_blood.Controllers
             return Ok(results);
         }
 
+        /// <summary>
+        /// Obtem um estoque
+        /// </summary>
+        /// <param name="id">Identificador de estoque</param>
+        /// <returns>Dados do estoque</returns>
+        /// <response code="200">Sucesso</response>
+        /// <response code="404">Não encontrado</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetById(int id)
         {
             var result = _service.GetById(id); 
@@ -44,7 +61,15 @@ namespace Donate_blood.Controllers
             return Ok(result);
         }
 
+
+        /// <summary>
+        /// Filtrar tipo de sanguíne
+        /// </summary>
+        /// <param name="bloodType">Identificador do tipo de sangue</param>
+        /// <param name="factorRh">Identificador do FatorRh</param>
+        /// <returns>Estoque do tipo filtrado.</returns>
         [HttpGet("{bloodType}/{factorRh}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetByType(int bloodType, int factorRh)
         {
             var result = _service.GetByType(bloodType, factorRh);

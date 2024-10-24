@@ -29,30 +29,14 @@ namespace Donate_blood.Controllers
             _donationsService = donationsService;
             _stockService = stockService;
             _webHostEnv = webHostEnv;
-        }   
-
-        [HttpGet("CreateReport")]
-        public IActionResult CreateReport()
-        {
-            var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportDonor.frx");
-            var reportFile = caminhoRelatorio;
-            var fReport = new FastReport.Report();
-            
-            var donateListResult = _donorsService.GetAll();
-            var donateList = donateListResult.Data;
-
-            var stockListResult = _stockService.GetAll();
-            var stockList = stockListResult.Data;
-
-            fReport.Dictionary.RegisterBusinessObject(donateList, "Donors", 10, true);
-            fReport.Dictionary.RegisterBusinessObject(stockList, "Stocks", 10, true);
-            fReport.Report.Save(reportFile);
-
-            return Ok($"Relatório gerado: {caminhoRelatorio}");
         }
 
+        /// <summary>
+        /// Gera relatório de doadores
+        /// </summary>
+        /// <returns>Retorna link para download de relatório de doadores</returns>
         [HttpGet("GetReport")]
-        public IActionResult GetReport()
+        public IActionResult GetReportDonors()
         {
             var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportDonor.frx");
             var fReport = new FastReport.Report();
@@ -62,11 +46,15 @@ namespace Donate_blood.Controllers
             
             var stockListResult = _stockService.GetAll();
             var stockList = stockListResult.Data;
-            
+
+            var donationsListResult = _donationsService.GetAll();
+            var donationsList = donationsListResult.Data;
+
             fReport.Report.Load(caminhoRelatorio);
 
             fReport.Dictionary.RegisterBusinessObject(donateList, "Donors", 10, true);
             fReport.Dictionary.RegisterBusinessObject(stockList, "Stocks", 10, true);
+            fReport.Dictionary.RegisterBusinessObject(donationsList, "Donations", 100, true);
 
             fReport.Prepare();
 
@@ -79,5 +67,107 @@ namespace Donate_blood.Controllers
 
             return File(ms.ToArray(), "application/pdf", "RelatorioDonations.pdf");
         }
+
+        /// <summary>
+        /// Gera relatório de estoque
+        /// </summary>
+        /// <returns>Retorna link para download de relatório de estoque</returns>
+        [HttpGet("GetReportStock")]
+        public IActionResult GetStock()
+        {
+            var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportStock.frx");
+            var fReport = new FastReport.Report();
+
+            var donateListResult = _donorsService.GetAll();
+            var donateList = donateListResult.Data;
+            
+            var stockListResult = _stockService.GetAll();
+            var stockList = stockListResult.Data;
+
+            var donationsListResult = _donationsService.GetAll();
+            var donationsList = donationsListResult.Data;
+
+            fReport.Report.Load(caminhoRelatorio);
+
+            fReport.Dictionary.RegisterBusinessObject(donateList, "Donors", 10, true);
+            fReport.Dictionary.RegisterBusinessObject(stockList, "Stocks", 10, true);
+            fReport.Dictionary.RegisterBusinessObject(donationsList, "Donations", 100, true);
+
+            fReport.Prepare();
+
+            using var pdfExport = new PDFSimpleExport();
+
+            using MemoryStream ms = new MemoryStream();
+
+            pdfExport.Export(fReport, ms);
+            ms.Flush();
+
+            return File(ms.ToArray(), "application/pdf", "RelatorioDonations.pdf");
+        }
+
+        /// <summary>
+        /// Cria relatório de estoque
+        /// </summary>
+        /// <remarks>
+        /// Caso crie um relatório, saiba que o design do atual será perdido.
+        /// </remarks>
+        /// <returns>Coleção de estoque</returns>
+        [HttpGet("CreateReportStock")]
+        public IActionResult CreateReportStock()
+        {
+            var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportStock.frx");
+            var reportFile = caminhoRelatorio;
+            var fReport = new FastReport.Report();
+
+            var donateListResult = _donorsService.GetAll();
+            var donateList = donateListResult.Data;
+
+            var stockListResult = _stockService.GetAll();
+            var stockList = stockListResult.Data;
+
+            var donationsListResult = _donationsService.GetAll();
+            var donationsList = donationsListResult.Data;
+
+            fReport.Dictionary.RegisterBusinessObject(donateList, "Donors", 100, true);
+            fReport.Dictionary.RegisterBusinessObject(stockList, "Stocks", 100, true);
+            fReport.Dictionary.RegisterBusinessObject(donationsList, "Donations", 100, true);
+
+            fReport.Report.Save(reportFile);
+
+            return Ok($"Relatório gerado: {caminhoRelatorio}");
+        }
+
+        /// <summary>
+        /// Cria relatório de doadores
+        /// </summary>
+        /// <remarks>
+        /// Caso crie um relatório, saiba que o design do atual será perdido.
+        /// </remarks>
+        /// <returns> Link para editar relatório no FasReports</returns>
+        [HttpGet("CreateReport")]
+        public IActionResult CreateReportDonors()
+        {
+            var caminhoRelatorio = Path.Combine(_webHostEnv.WebRootPath, @"reports/ReportDonor.frx");
+            var reportFile = caminhoRelatorio;
+            var fReport = new FastReport.Report();
+            
+            var donateListResult = _donorsService.GetAll();
+            var donateList = donateListResult.Data;
+
+            var stockListResult = _stockService.GetAll();
+            var stockList = stockListResult.Data;
+
+            var donationsListResult = _donationsService.GetAll();
+            var donationsList = donationsListResult.Data;
+
+            fReport.Dictionary.RegisterBusinessObject(donateList, "Donors", 100, true);
+            fReport.Dictionary.RegisterBusinessObject(stockList, "Stocks", 100, true);
+            fReport.Dictionary.RegisterBusinessObject(donationsList, "Donations", 100, true);
+
+            fReport.Report.Save(reportFile);
+
+            return Ok($"Relatório gerado: {caminhoRelatorio}");
+        }
+
     }
 }

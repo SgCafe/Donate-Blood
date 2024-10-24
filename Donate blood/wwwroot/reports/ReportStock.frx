@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="10/24/2024 13:49:08" ReportInfo.Modified="10/24/2024 14:36:56" ReportInfo.CreatorVersion="2025.1.0.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="Donors" ReferenceName="Donors" DataType="System.Int32" Enabled="true">
+      <Column Name="FullName" DataType="System.String"/>
+      <Column Name="Email" DataType="System.String"/>
+      <Column Name="BirthDate" DataType="System.DateTime"/>
+      <Column Name="Gender" DataType="System.String"/>
+      <Column Name="Weight" DataType="System.Double"/>
+      <Column Name="BloodType" DataType="System.String"/>
+      <Column Name="FactorRh" DataType="System.String"/>
+      <Column Name="AmountTotal" DataType="System.Int32"/>
+      <BusinessObjectDataSource Name="Donations" DataType="System.Int32" Enabled="true">
+        <Column Name="id" DataType="System.Int32"/>
+        <Column Name="donationDate" DataType="System.DateTime"/>
+        <Column Name="quantity" DataType="System.Int32"/>
+      </BusinessObjectDataSource>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="Stocks" ReferenceName="Stocks" DataType="System.Int32" Enabled="true">
+      <Column Name="Id" DataType="System.Int32"/>
+      <Column Name="BloodType" DataType="System.Int32"/>
+      <Column Name="FactorRh" DataType="System.Int32"/>
+      <Column Name="Quantity" DataType="System.Int32"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="Donations1" ReferenceName="Donations" DataType="System.Int32" Enabled="true">
+      <Column Name="DonationId" DataType="System.Int32"/>
+      <Column Name="DonationDate" DataType="System.DateTime"/>
+      <Column Name="Quantity" DataType="System.Int32"/>
+      <Column Name="Donor" DataType="System.Int32">
+        <Column Name="FullName" DataType="System.String"/>
+        <Column Name="Email" DataType="System.String"/>
+        <Column Name="BloodType" DataType="System.Int32"/>
+        <Column Name="FactorRh" DataType="System.Int32"/>
+      </Column>
+      <BusinessObjectDataSource Name="StocksMoviments" DataType="System.Int32" Enabled="true">
+        <Column Name="IdDonation" DataType="System.Int32"/>
+        <Column Name="IdStock" DataType="System.Int32"/>
+      </BusinessObjectDataSource>
+    </BusinessObjectDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="Text1" Width="718.2" Height="37.8" Fill.Color="Black" Text="Relatório de Doadores de Sangue" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 14pt, style=Bold" TextFill.Color="White"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="718.2" Height="37.8">
+      <TextObject Name="Text3" Left="170.1" Top="18.9" Width="132.3" Height="18.9" Text="Tipo Sanguíneo" HorzAlign="Center" VertAlign="Center" Font="Segoe UI Semibold, 11pt"/>
+      <TextObject Name="Text7" Left="321.3" Top="18.9" Width="94.5" Height="18.9" Text="Quantidade" HorzAlign="Center" VertAlign="Center" Font="Segoe UI Semibold, 11pt"/>
+      <TextObject Name="Text8" Left="434.7" Top="18.9" Width="122.85" Height="18.9" Text="Estoque mínimo" HorzAlign="Center" VertAlign="Center" Font="Segoe UI Semibold, 11pt"/>
+      <LineObject Name="Line1" Left="132.3" Top="37.8" Width="491.4"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="83.6" Width="718.2" Height="28.35" DataSource="Stocks">
+      <TextObject Name="Text2" Left="170.1" Top="9.45" Width="132.3" Height="18.9" Text="[Stocks.BloodType] [Stocks.FactorRh]" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 10pt"/>
+      <TextObject Name="Text6" Left="321.3" Top="9.45" Width="94.5" Height="18.9" Text="[Stocks.Quantity] ml" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 10pt"/>
+      <TextObject Name="Text9" Left="434.7" Top="9.45" Width="122.85" Height="18.9" Text="1000ml" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 10pt"/>
+      <CheckBoxObject Name="CheckBox1" Left="576.45" Top="9.45" Width="18.9" Height="18.9" ExportableExpression="[Stocks.Quantity] &gt; 1000" Border.Lines="Right" Fill.Color="White" BeforePrintEvent="CheckBox1_BeforePrint" DataColumn="Stocks.Quantity" Expression="[Stocks.Quantity] &gt; 1000 ? Color.White : Color.Red"/>
+      <LineObject Name="Line2" Left="311.85" Height="28.35"/>
+      <LineObject Name="Line3" Left="425.25" Height="28.35"/>
+      <LineObject Name="Line4" Left="567" Height="28.35"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="115.95" Width="718.2" Height="28.35">
+      <TextObject Name="Text10" Left="623.7" Top="9.45" Width="94.5" Height="18.9" Border.Lines="Right" Text="[PageN]" HorzAlign="Center" VertAlign="Center" Font="Segoe UI Semibold, 10pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>
